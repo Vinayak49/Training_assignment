@@ -2,92 +2,143 @@ package com.company;
 import java.io.*;
 import java.util.Scanner;
 
-class Employee{
-    String name;
-    String email;
-    int age;
-    String dob;
+class Employee {
+    private String name;
+    private String email;
+    private int age;
+    private String dob;
 
-    void add(String n, String e, int a, String d){
+    void add(String n, String e, int a, String d) {
         name = n;
         email = e;
         age = a;
         dob = d;
 
-        try{
-            int count=0;
-            FileWriter mw  = new FileWriter("employee.txt",true);
+        try {
+            int count = 0;
+            FileWriter mw = new FileWriter("employee.txt", true);
             File obj = new File("employee.txt");
             Scanner reader = new Scanner(obj);
             BufferedWriter out = new BufferedWriter(mw);
-            while(reader.hasNextLine()) {
+            while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 count = (data.split("," + e + ",").length) - 1;
             }
-            if (count<1){
-                out.write(name+","+email+","+age+","+dob+"\n");
+            if (count < 1) {
+                out.write(name + "," + email + "," + age + "," + dob + "\n");
                 System.out.println("written");
-            }
-
-            else{
+            } else {
                 System.out.println("email already exists.");
             }
             out.close();
 
 
-        }
-        catch (IOException er){
+        } catch (IOException er) {
             System.out.println("some errr occurred");
             er.printStackTrace();
         }
     }
-    void SearchRec(String e){
-        email =e;
+
+    void SearchRec(String e) {
+//        email =e;
         try {
             File obj = new File("employee.txt");
             Scanner reader = new Scanner(obj);
-            int i =0;
-            while(reader.hasNextLine()){
+            int i = 0;
+            int flag = 0;
+            while (reader.hasNextLine()) {
                 String data = reader.nextLine();
-                int count = (data.split(","+e+",").length) - 1;
-                if (count>0)
-                    System.out.println(data + "at line number : "+ i);
-                i+=1;
+                int count = (data.split("," + e + ",").length) - 1;
+                if (count > 0) {
+                    flag = 1;
+                }
+                i += 1;
             }
             reader.close();
-        }
-        catch (FileNotFoundException er){
+            if (flag == 1) {
+                System.out.println("Found at line " + i);
+
+            } else {
+                System.out.println("Not Found");
+            }
+        } catch (FileNotFoundException er) {
             System.out.println("error found");
             er.printStackTrace();
         }
     }
-    void DeleteRec(String e){
-        email = e;
+
+    void DeleteRec(String e) {
+        String tempFile = "employee1.txt";
+        File oldf = new File("employee.txt");
+        File newf = new File("employee1.txt");
+
+        String current;
         try {
-            FileWriter mw  = new FileWriter("employee1.txt",true);
-            File obj = new File("employee.txt");
-            BufferedWriter out = new BufferedWriter(mw);
-            Scanner reader = new Scanner(obj);
-            while(reader.hasNextLine()){
-                String data = reader.nextLine();
-                out.write(data);
-                System.out.println(data);
+            FileWriter fw = new FileWriter(tempFile, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+
+            FileReader fr = new FileReader("employee.txt");
+            BufferedReader br = new BufferedReader(fr);
+//            int count = (data.split("," + e + ",").length) - 1;
+            while ((current = br.readLine()) == null) {
+                if (current.split("," + e + ",").length != 1) {
+                    pw.println(current);
+                }
+
             }
+            pw.flush();
+            pw.close();
+            fr.close();
+            br.close();
+            bw.close();
+            fw.close();
 
-            reader.close();
+            oldf.delete();
+            File dump = new File("employee.txt");
+            newf.renameTo(dump);
+        } catch (Exception em) {
 
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
         }
     }
+
 }
+    public class problem_statement_3 {
+        public static void main(String[] args) {
+            Employee eobj2 = new Employee();
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter a to add \nEnter s to search \nEnter d to delete a record ");
+            String operation = sc.next();
 
-public class problem_statement_3 {
-    public static void main(String[] args) {
-        Employee eobj2 = new Employee();
+        switch (operation){
+            case "a":
+                System.out.print("Enter name :");
+                String name = sc.next();
+                System.out.print("Enter email :");
+                String email = sc.next();
+                System.out.print("Enter age :");
+                int age = sc.nextInt();
+                System.out.print("Enter dob :");
+                String dob = sc.next();
+                eobj2.add(name, email,age,dob);
+                break;
 
-        eobj2.add("vina","vin@vinay",12,"123");
-        eobj2.SearchRec("vin@vin");eobj2.SearchRec("vin@vin");
-//        eobj2.DeleteRec("vin@vin");
+            case "s":
+                System.out.print("Enter email :");
+                String email1 = sc.next();
+                eobj2.SearchRec(email1);
+                break;
+            case "d":
+                System.out.println("Eter email : ");
+                String email2 = sc.next();
+                eobj2.DeleteRec(email2);
+                break;
+        }
+//        eobj2.add("vina","vin@vinay",12,"123");
+//        eobj2.add("vina","vin@vi",12,"123");
+//        eobj2.add("vina","vin@vina",12,"123");
+//            eobj2.SearchRec("vin@vinay");
+//        eobj2.DeleteRec("vin@vina");
+        }
     }
-}
+
