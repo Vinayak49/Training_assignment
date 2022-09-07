@@ -1,14 +1,14 @@
-package com.company;
-import java.util.*;
+package com.hotwax.www;
 
+import java.util.Scanner;
 
 class Triangle{
     int height;
     int base;
 
-    void getDimensions(int h , int b){
-        height = h;
-        base = b;
+    void getDimensions(int height , int base){
+        this.height = height;
+        this.base = base;
     }
 
     void calculateArea(){
@@ -71,20 +71,22 @@ public class Main {
         // write your code here
         while (true)
         {
-            System.out.println("Enter shape : ");
+            System.out.println("Enter shape ---\nType--\nTriangle\nRectangle\nSquare\nCylinder\nCircle\nSphere\nexit");
             Scanner sc = new Scanner(System.in);
             String shape = sc.next();
             if (shape.equalsIgnoreCase( "triangle")){
-                Triangle t = new Triangle();
+                Triangle triangle = new Triangle();
                 System.out.println("Enter Operation to be performed : ");
+                System.out.println("Choose between Area and Perimeter");
                 String operation = sc.next();
+
                 if (operation.equalsIgnoreCase("area")){
                     System.out.print("Enter height of Triangle : ");
                     int height = sc.nextInt();
                     System.out.print("Enter base of Triangle : ");
                     int base = sc.nextInt();
-                    t.getDimensions(height, base);
-                    t.calculateArea();
+                    triangle.getDimensions(height, base);
+                    triangle.calculateArea();
                 }
                 if (operation.equalsIgnoreCase("perimeter")){
                     System.out.println("Enter length of first side");
@@ -93,83 +95,88 @@ public class Main {
                     int b = sc.nextInt();
                     System.out.println("Enter length of third side");
                     int c = sc.nextInt();
-                    t.calculatePerimeter(a,b,c);
+                    triangle.calculatePerimeter(a,b,c);
                 }
 
             }
             else if (shape.equalsIgnoreCase("rectangle")){
-                Rectangle r = new Rectangle();
+                Rectangle rectangle = new Rectangle();
                 System.out.println("Enter Operation to be performed : ");
+                System.out.println("Choose between Area and Perimeter");
                 String operation = sc.next();
                 System.out.println("Enter length : ");
-                int l = sc.nextInt();
+                int length = sc.nextInt();
                 System.out.println("Enter breadth : ");
-                int b = sc.nextInt();
+                int breadth = sc.nextInt();
                 if (operation.equalsIgnoreCase("area")){
-                    r.calculateArea(l,b);
+                    rectangle.calculateArea(length,breadth);
                 }
                 else if (operation.equalsIgnoreCase("perimeter")){
-                    r.calculatePerimeter(l,b);
+                    rectangle.calculatePerimeter(length,breadth);
                 }
             }
             else if (shape.equalsIgnoreCase("square")){
-                Square r = new Square();
+                Square square = new Square();
                 System.out.println("Enter Operation to be performed : ");
+                System.out.println("Choose between Area and Perimeter");
                 String operation = sc.next();
                 System.out.println("Enter side : ");
-                int l = sc.nextInt();
+                int side = sc.nextInt();
                 if (operation.equalsIgnoreCase("area")){
-                    r.calculateArea(l);
+                    square.calculateArea(side);
                 }
                 else if (operation.equalsIgnoreCase("perimeter")){
-                    r.calculatePerimeter(l);
+                    square.calculatePerimeter(side);
                 }
             }
             else if (shape.equalsIgnoreCase("cylinder")){
-                Cylinder c = new Cylinder();
+                Cylinder cylinder = new Cylinder();
                 System.out.println("Enter Operation to be performed : ");
+                System.out.println("Choose between Area, Perimeter and Volume");
                 String operation = sc.next();
                 System.out.println("Enter radius : ");
-                int r = sc.nextInt();
+                int radius = sc.nextInt();
                 System.out.println("Enter height : ");
-                int h = sc.nextInt();
+                int height = sc.nextInt();
                 if (operation.equalsIgnoreCase("area")){
-                    c.calculateArea(r,h);
+                    cylinder.calculateArea(radius,height);
                 }
                 else if (operation.equalsIgnoreCase("perimeter")){
-                    c.calculatePerimeter(r);
+                    cylinder.calculatePerimeter(radius);
                 }
                 else if (operation.equalsIgnoreCase("Volume")){
-                    c.calculateVolume(r,h);
+                    cylinder.calculateVolume(radius,height);
                 }
             }
             else if (shape.equalsIgnoreCase("circle")){
-                Circle c = new Circle();
+                Circle circle = new Circle();
                 System.out.println("Enter Operation to be performed : ");
+                System.out.println("Choose between Area and Perimeter");
                 String operation = sc.next();
                 System.out.println("Enter radius : ");
-                int r = sc.nextInt();
+                int radius = sc.nextInt();
                 if (operation.equalsIgnoreCase("area")){
-                    c.calculateArea(r);
+                    circle.calculateArea(radius);
                 }
                 else if (operation.equalsIgnoreCase("perimeter")) {
-                    c.calculatePerimeter(r);
+                    circle.calculatePerimeter(radius);
                 }
             }
             else if (shape.equalsIgnoreCase("Sphere")){
-                Sphere s = new Sphere();
+                Sphere sphere = new Sphere();
                 System.out.println("Enter Operation to be performed : ");
+                System.out.println("Choose between Area, Perimeter and Volume");
                 String operation = sc.next();
                 System.out.println("Enter radius : ");
-                int r = sc.nextInt();
+                int radius = sc.nextInt();
                 if (operation.equalsIgnoreCase("area")){
-                    s.calculateArea(r);
+                    sphere.calculateArea(radius);
                 }
                 else if (operation.equalsIgnoreCase("perimeter")) {
-                    s.calculatePerimeter(r);
+                    sphere.calculatePerimeter(radius);
                 }
                 else if (operation.equalsIgnoreCase("Volume")) {
-                    s.calculateVolume(r);
+                    sphere.calculateVolume(radius);
                 }
             }
             else if (shape.equalsIgnoreCase("done")){
